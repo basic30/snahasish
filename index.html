@@ -411,23 +411,23 @@
             </div>
 
             <div class="glass p-8 md:p-12 rounded-2xl border border-white/10 shadow-2xl">
-                <form onsubmit="event.preventDefault();" class="space-y-6">
+                <form id="contact-form" class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-sm text-gray-400 ml-1">Name</label>
-                            <input type="text" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-white" placeholder="John Doe">
+                            <input type="text" id="name" required class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-white" placeholder="John Doe">
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm text-gray-400 ml-1">Email</label>
-                            <input type="email" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-white" placeholder="john@example.com">
+                            <input type="email" id="email" required class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-white" placeholder="john@example.com">
                         </div>
                     </div>
                     <div class="space-y-2">
                         <label class="text-sm text-gray-400 ml-1">Message</label>
-                        <textarea rows="4" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-white" placeholder="Tell me about your project..."></textarea>
+                        <textarea id="message" required rows="4" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-white" placeholder="Tell me about your project..."></textarea>
                     </div>
-                    <button class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 rounded-lg hover:opacity-90 transition-all transform active:scale-95 shadow-lg shadow-primary/25">
-                        Send Message <i class="fas fa-paper-plane ml-2"></i>
+                    <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 rounded-lg hover:opacity-90 transition-all transform active:scale-95 shadow-lg shadow-primary/25 flex items-center justify-center gap-2">
+                        Send Message <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
                 
@@ -537,6 +537,42 @@
                 navbar.classList.remove('bg-dark/80');
                 navbar.classList.add('glass');
             }
+        });
+        const form = document.getElementById('contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const originalContent = btn.innerHTML;
+            
+            // 1. Loading State (Animation)
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // 2. Simulate delay for effect
+            setTimeout(() => {
+                // 3. Construct Mailto Link (The actual functionality)
+                const subject = `Portfolio Contact from ${name}`;
+                const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+                window.location.href = `mailto:snahasishdey143@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+                // 4. Success State (Animation)
+                btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                btn.classList.remove('from-primary', 'to-secondary');
+                btn.classList.add('bg-green-500', 'hover:bg-green-600');
+                
+                // 5. Reset Form after 3 seconds
+                setTimeout(() => {
+                    form.reset();
+                    btn.disabled = false;
+                    btn.innerHTML = originalContent;
+                    btn.classList.add('from-primary', 'to-secondary');
+                    btn.classList.remove('bg-green-500', 'hover:bg-green-600');
+                }, 3000);
+            }, 1500); // 1.5 second delay for the "sending" animation
         });
     </script>
 </body>
