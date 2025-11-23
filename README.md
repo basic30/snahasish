@@ -13,7 +13,7 @@ The goal of this website is to present who I am, what I build, and the quality o
 ## Website Preview  
 
 <p align="center">
-  <img src="https://i.ibb.co/pjmfgh7W/Screenshot-2025-11-23-232231.png" alt="Website Preview" width="600px">
+  <img src="https://drive.google.com/uc?export=view&id=1pDgtr38JN8vnnww99mtAxfE0WvvmrHAF" alt="Website Preview" width="600px">
 </p>
 
 ---
@@ -82,6 +82,7 @@ root/
 │── index.html
 │── CNAME
 │── README.md
+│── Favicon.png
 
 ---
 
